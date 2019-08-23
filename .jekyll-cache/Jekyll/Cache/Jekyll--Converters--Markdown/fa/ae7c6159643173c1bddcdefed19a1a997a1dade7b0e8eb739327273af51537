@@ -1,0 +1,141 @@
+I"�><h2 id="前言">前言</h2>
+
+<p>很多人采用<a href="https://pages.github.com/">Github Pages</a>创建了自己的blog或其它网站，而想到添加个留言功能。</p>
+
+<p>针对这个问题，我添加了<a href="https://github.com/gitalk/gitalk">Gitalk</a> 评论插件。在此，非常感谢 <a href="https://github.com/FeDemo">@FeDemo</a> 的推荐 。</p>
+
+<h2 id="正文">正文</h2>
+
+<h3 id="gitalk-评论插件">Gitalk 评论插件</h3>
+
+<p>gitalk 使用 Github 帐号登录，界面干净整洁，最喜欢的一点是支持 <code class="highlighter-rouge">MarkDown语法</code>。</p>
+
+<h3 id="原理">原理</h3>
+
+<p>Gitalk 是一个利用 Github API,基于 Github issue 和 Preact 开发的评论插件，可以看到在 gitalk 的评论框进行评论时，其实就是在对应的 issue 上提问题。</p>
+
+<h3 id="自动初始化-gitalk-评论">自动初始化 Gitalk 评论</h3>
+
+<p><code class="highlighter-rouge">获得权限</code>
+在使用该脚本之前首先要在 GitHub 创建一个新的 Personal access tokens ，<a href="https://github.com/settings/tokens/new">点这里申请</a>在当前的页面中为 Token 添加所有 <code class="highlighter-rouge">Repo</code> 的权限：</p>
+
+<p><code class="highlighter-rouge">personal-access-token</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>New personal access token
+Personal access tokens function like ordinary OAuth access tokens. They can be used instead of a password for Git over HTTPS, or can be used to authenticate to the API over Basic Authentication.
+
+Note
+Description
+What’s this token for?
+
+Select scopes
+Scopes define the access for personal tokens. Read more about OAuth scopes.
+
+  repo  Full control of private repositories
+  repo:status  Access commit status
+  repo_deployment  Access deployment status
+  public_repo  Access public repositories
+  repo:invite  Access repository invitations
+</code></pre></div></div>
+<p>在 <code class="highlighter-rouge">repo</code> 前打上钩,点击界面最下的面<code class="highlighter-rouge">Generate token</code>按钮获得一个新的 <code class="highlighter-rouge">token</code>：</p>
+
+<p>作者已经把这个 <code class="highlighter-rouge">token</code> 删掉了，不要想着用这个 <code class="highlighter-rouge">token </code>就能获得到作者 GitHub 的权限。</p>
+
+<p><strong>自动化脚本</strong></p>
+
+<p>本文中提供的自动化脚本使用的是 <code class="highlighter-rouge">Ruby</code> 代码，请确定自己的机器上已经安装了 <code class="highlighter-rouge">Ruby</code>，并且使用如下的命令安装脚本所需要的所有依赖：</p>
+
+<p><code class="highlighter-rouge">sudo gem install faraday activesupport sitemap-parser</code></p>
+
+<p><strong>使用 sitemap 文件</strong></p>
+
+<p>如果我们使用的博客服务是 <code class="highlighter-rouge">Jekyll</code>，那么就可以通过 <code class="highlighter-rouge">jekyll-sitemap</code> 插件为博客创建对应的 <code class="highlighter-rouge">sitemap</code> 文件，例如：https://a-liudezhi.github.io/sitemap.xml。</p>
+
+<p>有 <code class="highlighter-rouge">sitemap</code> 文件之后就非常好办了，在任意目录下创建 <code class="highlighter-rouge">comment.rb</code> 文件后，将下面的代码粘贴到文件中：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">username</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">xxxxxxx</span><span class="dl">"</span> <span class="err">#</span> <span class="nx">GitHub</span> <span class="err">用户名</span>
+<span class="nx">new_token</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">xxxxxxx</span><span class="dl">"</span>  <span class="err">#</span> <span class="nx">GitHub</span> <span class="nx">Token</span>
+<span class="nx">repo_name</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">github-comments-repo</span><span class="dl">"</span> <span class="err">#</span> <span class="err">存放</span> <span class="nx">issues</span>
+<span class="nx">sitemap_url</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://xxxxxx.github.io/sitemap.xml</span><span class="dl">"</span> <span class="err">#</span> <span class="nx">sitemap</span>
+<span class="nx">kind</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Gitalk</span><span class="dl">"</span> <span class="err">#</span> <span class="dl">"</span><span class="s2">Gitalk</span><span class="dl">"</span> <span class="nx">or</span> <span class="dl">"</span><span class="s2">gitment</span><span class="dl">"</span>
+
+<span class="nx">require</span> <span class="dl">'</span><span class="s1">open-uri</span><span class="dl">'</span>
+<span class="nx">require</span> <span class="dl">'</span><span class="s1">faraday</span><span class="dl">'</span>
+<span class="nx">require</span> <span class="dl">'</span><span class="s1">active_support</span><span class="dl">'</span>
+<span class="nx">require</span> <span class="dl">'</span><span class="s1">active_support/core_ext</span><span class="dl">'</span>
+<span class="nx">require</span> <span class="dl">'</span><span class="s1">sitemap-parser</span><span class="dl">'</span>
+
+<span class="nx">sitemap</span> <span class="o">=</span> <span class="nx">SitemapParser</span><span class="p">.</span><span class="k">new</span> <span class="nx">sitemap_url</span>
+<span class="nx">urls</span> <span class="o">=</span> <span class="nx">sitemap</span><span class="p">.</span><span class="nx">to_a</span>
+
+<span class="nx">conn</span> <span class="o">=</span> <span class="nx">Faraday</span><span class="p">.</span><span class="k">new</span><span class="p">(:</span><span class="nx">url</span> <span class="o">=&gt;</span> <span class="dl">"</span><span class="s2">https://api.github.com/repos/#{username}/#{repo_name}/issues</span><span class="dl">"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="nx">conn</span><span class="o">|</span>
+  <span class="nx">conn</span><span class="p">.</span><span class="nx">basic_auth</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">token</span><span class="p">)</span>
+  <span class="nx">conn</span><span class="p">.</span><span class="nx">adapter</span>  <span class="nx">Faraday</span><span class="p">.</span><span class="nx">default_adapter</span>
+<span class="nx">end</span>
+
+<span class="nx">urls</span><span class="p">.</span><span class="nx">each_with_index</span> <span class="k">do</span> <span class="o">|</span><span class="nx">url</span><span class="p">,</span> <span class="nx">index</span><span class="o">|</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="nx">open</span><span class="p">(</span><span class="nx">url</span><span class="p">).</span><span class="nx">read</span><span class="p">.</span><span class="nx">scan</span><span class="p">(</span><span class="sr">/&lt;title&gt;</span><span class="se">(</span><span class="sr">.*</span><span class="se">?)</span><span class="sr">&lt;</span><span class="se">\/</span><span class="sr">title&gt;/</span><span class="p">).</span><span class="nx">first</span><span class="p">.</span><span class="nx">first</span><span class="p">.</span><span class="nx">force_encoding</span><span class="p">(</span><span class="dl">'</span><span class="s1">UTF-8</span><span class="dl">'</span><span class="p">)</span>
+  <span class="nx">response</span> <span class="o">=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">post</span> <span class="k">do</span> <span class="o">|</span><span class="nx">req</span><span class="o">|</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="p">{</span> <span class="na">body</span><span class="p">:</span> <span class="nx">url</span><span class="p">,</span> <span class="na">labels</span><span class="p">:</span> <span class="p">[</span><span class="nx">kind</span><span class="p">,</span> <span class="nx">url</span><span class="p">],</span> <span class="na">title</span><span class="p">:</span> <span class="nx">title</span> <span class="p">}.</span><span class="nx">to_json</span>
+  <span class="nx">end</span>
+  <span class="nx">puts</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span>
+  <span class="nx">sleep</span> <span class="mi">15</span> <span class="k">if</span> <span class="nx">index</span> <span class="o">%</span> <span class="mi">20</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="nx">end</span>
+</code></pre></div></div>
+<p>在这里有 5 个配置项，分别是 GitHub 用户名、在上一步获得的 Token、存放 issues 的仓库、sitemap 的地址以及最后你在博客中使用了哪个评论插件，不同的插件拥有标签，可以选择 “Gitalk”</p>
+
+<p><strong>将这段代码插入到你的网站：</strong></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!--</span> <span class="nx">Gitalk</span> <span class="err">评论</span> <span class="nx">start</span>  <span class="o">--&gt;</span>
+
+<span class="c">&lt;!--</span> <span class="nx">Gitalk</span> <span class="nx">link</span> <span class="err">的支持文件</span><span class="o">--&gt;</span>
+<span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="dl">"</span><span class="s2">stylesheet</span><span class="dl">"</span> <span class="nx">href</span><span class="o">=</span><span class="dl">"</span><span class="s2">https://unpkg.com/gitalk/dist/gitalk.css</span><span class="dl">"</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">https://unpkg.com/gitalk@latest/dist/gitalk.min.js</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="dl">"</span><span class="s2">gitalk-container</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text/javascript</span><span class="dl">"</span><span class="o">&gt;</span>
+    <span class="kd">var</span> <span class="nx">gitalk</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Gitalk</span><span class="p">({</span>
+    <span class="na">clientID</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Github Application clientID</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">clientSecret</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Github Application clientSecret</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">repo</span><span class="p">:</span> <span class="dl">'</span><span class="s1">存储你评论 issue 的 Github 仓库名</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">owner</span><span class="p">:</span> <span class="dl">'</span><span class="s1">{Github 用户名</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">admin</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">Github 用户名</span><span class="dl">'</span><span class="p">],</span>
+    <span class="na">id</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span><span class="p">,</span> <span class="cm">/*页面的唯一标识，长度必须小于50，gitalk会根据这个标识自动创建对应的issue的标签，你总不能啥页面下面都是同一个评论吧*/</span>
+    <span class="p">});</span>
+    <span class="nx">gitalk</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">gitalk-container</span><span class="dl">'</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span>
+<span class="c">&lt;!--</span> <span class="nx">Gitalk</span> <span class="nx">end</span> <span class="o">--&gt;</span>
+</code></pre></div></div>
+<p><strong>配置参数：</strong></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">clientID</span><span class="p">:</span> <span class="s2">`Github Application clientID`</span><span class="p">,</span>
+<span class="nx">clientSecret</span><span class="p">:</span> <span class="s2">`Github Application clientSecret`</span><span class="p">,</span>
+<span class="nx">repo</span><span class="p">:</span> <span class="s2">`Github 仓库名`</span><span class="p">,</span><span class="c1">//存储你评论 issue 的 Github 仓库名（建议直接用 GitHub Page 的仓库名）</span>
+<span class="nx">owner</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Github 用户名</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">admin</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">Github 用户名</span><span class="dl">'</span><span class="p">],</span> <span class="c1">//这个仓库的管理员，可以有多个，用数组表示，一般写自己,</span>
+<span class="nx">id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">window.location.pathname</span><span class="dl">'</span><span class="p">,</span> <span class="c1">//页面的唯一标识，gitalk 会根据这个标识自动创建的issue的标签,我们使用页面的相对路径作为标识</span>
+</code></pre></div></div>
+<p>上面用到很多参数，这些参数正常来说，放到 <code class="highlighter-rouge">_config.yaml</code> 里面配置比较好， 后续修改，则不需要去改代码。</p>
+
+<p>当然，还有其他很多参数，有兴趣的话可以 <a href="https://github.com/gitalk/gitalk#options"> 点这里</a>。</p>
+
+<p>比如我就增加了这个全屏遮罩的参数。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>distractionFreeMode: true,
+</code></pre></div></div>
+<h3 id="创建-github-application">创建 Github Application</h3>
+
+<p>Gitalk 需要一个 <strong>Github Application</strong>，<a href="https://github.com/settings/applications/new">点击这里申请</a>。</p>
+
+<p>其中,<code class="highlighter-rouge">Application name</code>,<code class="highlighter-rouge">description</code>可以随便填，<code class="highlighter-rouge">Homepage URL</code>,<code class="highlighter-rouge">Authorization callback URL</code> 需要填写你博客网页的网址</p>
+
+<p>点击创建</p>
+
+<p>获取 <code class="highlighter-rouge">Client ID</code> 和 <code class="highlighter-rouge">Client Secret</code> 填入你的 Gitalk 参数中</p>
+
+<p>当你参数都设置好，将代码推送到 <code class="highlighter-rouge">Github</code> 仓库后，<code class="highlighter-rouge">刷新几次页面</code>，就会看到评论插件。初次要用 github 帐号登录（管理员），<code class="highlighter-rouge">初次需要授权</code>：</p>
+
+<p>img/post-shouquan.png</p>
+
+<h1 id="结语">结语</h1>
+
+<p>参考: <a href="https://draveness.me/git-comments-initialize">自动初始化 Gitalk 和 Gitment 评论</a></p>
+
+<p>最后，<a href="https://github.com/a-liudezhi/a-liudezhi.github.io">给个 star 吧</a>~</p>
+:ET

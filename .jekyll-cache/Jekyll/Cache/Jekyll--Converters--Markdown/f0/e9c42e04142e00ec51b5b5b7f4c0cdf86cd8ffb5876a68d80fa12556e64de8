@@ -15,7 +15,7 @@ Log in</p>
 <p>(base) Udizy:jdstore_66 liudezhi$ rails c
 Running via Spring preloader in process 17382
 Loading development environment (Rails 5.2.3)
-2.6.3 :001 &gt; u = User.new(email: “a.liudezhi@gmail.com”, password: “88888888”, password_confirmation: “88888888”)
+2.6.3 :001 &gt; u = User.new(email: “a.liudezhi@gmail.com”, password: “xxxxxxxx”, password_confirmation: “xxxxxxxx”)
  =&gt; #&lt;User id: nil, email: “a.liudezhi@gmail.com”, created_at: nil, updated_at: nil, is_admin: false&gt; 
 2.6.3 :002 &gt; u.is_admin = true
  =&gt; true 

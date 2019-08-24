@@ -1,0 +1,48 @@
+I"<p>报错：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Sign up
+1 error prohibited this user from being saved:
+	• Email has already been taken
+Email
+Password (6 characters minimum) 
+Password confirmation
+Log in
+
+
+注册1错误禁止此用户被保存：电子邮件已被接受电子邮件Think 72013@Aliyun.com密码(至少6个字符)密码确认登录
+
+undefined method `current_sign_in_at' for #&lt;User:0x00007fdb334bc768&gt;
+</code></pre></div></div>
+<p>原因：更改了admin设定:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(base) Udizy:jdstore_66 liudezhi$ rails c
+Running via Spring preloader in process 17382
+Loading development environment (Rails 5.2.3)
+2.6.3 :001 &gt; u = User.new(email: "a.liudezhi@gmail.com", password: "xxxxxxxx", password_confirmation: "xxxxxxxx")
+ =&gt; #&lt;User id: nil, email: "a.liudezhi@gmail.com", created_at: nil, updated_at: nil, is_admin: false&gt; 
+2.6.3 :002 &gt; u.is_admin = true
+ =&gt; true 
+2.6.3 :003 &gt; u.save
+   (0.1ms)  begin transaction
+  User Exists (1.3ms)  SELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?  [["email", "a.liudezhi@gmail.com"], ["LIMIT", 1]]
+   (0.1ms)  rollback transaction
+ =&gt; false 
+2.6.3 :005 &gt; exit
+(base) Udizy:jdstore_66 liudezhi$ rake db:seed
+(base) Udizy:jdstore_66 liudezhi$ touch app/views/layouts/admin.html.erb
+(base) Udizy:jdstore_66 liudezhi$ 
+</code></pre></div></div>
+<p>解决：删除user 。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rails c
+$ User.delete_all
+$ exit
+</code></pre></div></div>
+<p>终端：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(base) Udizy:jdstore_66 liudezhi$ rails c
+Running via Spring preloader in process 18209
+Loading development environment (Rails 5.2.3)
+2.6.3 :001 &gt; User.delete_all
+  User Destroy (3.5ms)  DELETE FROM "users"
+ =&gt; 1 
+2.6.3 :002 &gt; exit
+(base) Udizy:jdstore_66 liudezhi$
+</code></pre></div></div>
+:ET

@@ -1,18 +1,4 @@
----
-layout: post
-title: 退出后无法注册和登陆
-subtitle:   删除建立的 User
-date: 2019-08-23 21:50 +0800
-author:     DZ
-
-catalog: true
-tags:
-    - 注册登陆
----
-
-报错：
-```
-Sign up
+I"�<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Sign up
 1 error prohibited this user from being saved:
 	• Email has already been taken
 Email
@@ -23,41 +9,39 @@ Log in
 
 注册1错误禁止此用户被保存：电子邮件已被接受电子邮件Think 72013@Aliyun.com密码(至少6个字符)密码确认登录
 
-undefined method `current_sign_in_at' for #<User:0x00007fdb334bc768>
-```
-原因：更改了admin设定:
-```
+undefined method `current_sign_in_at' for #&lt;User:0x00007fdb334bc768&gt;
+
+原因：更改了admin设定
+
+
+
 (base) Udizy:jdstore_66 liudezhi$ rails c
 Running via Spring preloader in process 17382
 Loading development environment (Rails 5.2.3)
-2.6.3 :001 > u = User.new(email: "a.liudezhi@gmail.com", password: "xxxxxxxx", password_confirmation: "xxxxxxxx")
- => #<User id: nil, email: "a.liudezhi@gmail.com", created_at: nil, updated_at: nil, is_admin: false> 
-2.6.3 :002 > u.is_admin = true
- => true 
-2.6.3 :003 > u.save
+2.6.3 :001 &gt; u = User.new(email: "a.liudezhi@gmail.com", password: "xxxxxxxx", password_confirmation: "xxxxxxxx")
+ =&gt; #&lt;User id: nil, email: "a.liudezhi@gmail.com", created_at: nil, updated_at: nil, is_admin: false&gt; 
+2.6.3 :002 &gt; u.is_admin = true
+ =&gt; true 
+2.6.3 :003 &gt; u.save
    (0.1ms)  begin transaction
   User Exists (1.3ms)  SELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?  [["email", "a.liudezhi@gmail.com"], ["LIMIT", 1]]
    (0.1ms)  rollback transaction
- => false 
-2.6.3 :005 > exit
+ =&gt; false 
+2.6.3 :005 &gt; exit
 (base) Udizy:jdstore_66 liudezhi$ rake db:seed
 (base) Udizy:jdstore_66 liudezhi$ touch app/views/layouts/admin.html.erb
 (base) Udizy:jdstore_66 liudezhi$ 
-```
-解决：删除user 。
-```
-$ rails c
-$ User.delete_all
-$ exit
-```
-终端：
-```
+
+
+解决：删除user
+
 (base) Udizy:jdstore_66 liudezhi$ rails c
 Running via Spring preloader in process 18209
 Loading development environment (Rails 5.2.3)
-2.6.3 :001 > User.delete_all
+2.6.3 :001 &gt; User.delete_all
   User Destroy (3.5ms)  DELETE FROM "users"
- => 1 
-2.6.3 :002 > exit
+ =&gt; 1 
+2.6.3 :002 &gt; exit
 (base) Udizy:jdstore_66 liudezhi$
-```
+</code></pre></div></div>
+:ET

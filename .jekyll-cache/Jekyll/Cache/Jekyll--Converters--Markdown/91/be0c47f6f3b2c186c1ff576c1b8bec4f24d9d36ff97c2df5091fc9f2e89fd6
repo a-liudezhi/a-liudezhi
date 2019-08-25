@@ -1,0 +1,8 @@
+I"4
+<div class="video-frame" data-video="/evernote.com/video/homepage/homepage-hero-video">
+<div class="video-overlay"></div>
+<video autoplay="autoplay" loop="loop">
+  <source class="mp4" type="video/mp4" src="https://cdn1.evernote.com/evernote.com/video/homepage/homepage-hero-video@2x.mp4" />
+</video>
+</div>
+:ET

@@ -21,22 +21,22 @@ tags:
 我们先来看看CocoaPods本地目录中有什么
 
 	$ cd ~/.cocoapods/repos/master
-	
+
 或者显示隐藏文件
 
 	$ defaults write com.apple.finder AppleShowAllFiles -boolean true ; killall Finder
-	
-然后进入 `~/.cocoapods/repos/master` 
+
+然后进入 `~/.cocoapods/repos/master`
 
 你会发现 `master` 是一个 git 仓库，输出仓库的远程地址，发现是一个GitHub仓库
 
 	$ git remote -v
-	
+
 	origin	https://github.com/CocoaPods/Specs.git (fetch)
 	origin	https://github.com/CocoaPods/Specs.git (push)
 
-	
-[![](https://ww4.sinaimg.cn/large/006tKfTcgy1fdgdi59dnnj31kw10247u.jpg)]()
+
+![](https://ww4.sinaimg.cn/large/006tKfTcgy1fdgdi59dnnj31kw10247u.jpg)]()
 
 继续，我们进入`Specs`文件夹一直往里点
 
@@ -78,17 +78,17 @@ pod搜索 Specs 文件夹中的框架，输出框架信息
 等终端出现下面文字，CocoaPods 会发一个`确认邮件`到你的邮箱上，登录你的邮箱进行确认。
 
 	[!] Please verify the session by clicking the link in the verification email that has been sent to you_email@163.com
-	
+
 ![](https://ww3.sinaimg.cn/large/006tNbRwgy1fdeco0ndc9j30r10h3wgt.jpg)
 
 注册成功！
-	
+
 确认后再终端输入
 
 	pod trunk me
-	
+
 可以看到你的注册信息
-	
+
 ![](https://ww4.sinaimg.cn/large/006tNbRwgy1fdecs0z72oj30n004q3z2.jpg)
 
 #### 创建Git仓库
@@ -115,7 +115,7 @@ pod搜索 Specs 文件夹中的框架，输出框架信息
 在你的仓库目录下，使用终端命令创建
 
 	$ pod spec create BYPhoneNumTF
-	
+
 这时就会在你的仓库下生成 `BYPhoneNumTF.podspec` 文件
 
 ![](https://ww4.sinaimg.cn/large/006tNbRwgy1fdfioo1c4zj31bq0s20zn.jpg)
@@ -140,7 +140,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0" #平台及支持的最低版本
   s.frameworks   = "UIKit", "Foundation" #支持的框架
   # s.dependency   = "AFNetworking" # 依赖库
-  
+
   # User
   s.author             = { "BY" => "qiubaiyingios@163.com" } # 作者信息
   s.social_media_url   = "http://qiubaiying.github.io" # 个人主页
@@ -155,18 +155,18 @@ end
 
 	 -> BYPhoneNumTF (1.0.0)
 
-	BYPhoneNumTF passed validation.	
+	BYPhoneNumTF passed validation.
 
 但是很多情况没这么顺利，比如:
 
 	 -> BYPhoneNumTF (1.0.0)
 	    - WARN  | url: There was a problem validating the URL http://qiubaiying.github.io.
-	
+
 	[!] BYPhoneNumTF did not pass validation, due to 1 warning (but you can use `--allow-warnings` to ignore it) and all results apply only to public specs, but you can use `--private` to ignore them if linting the specification for a private pod.
-	[!] The validator for Swift projects uses Swift 3.0 by default, if you are using a different version of swift you can use a `.swift-version` file to set the version for your Pod. For example to use Swift 2.3, run: 
+	[!] The validator for Swift projects uses Swift 3.0 by default, if you are using a different version of swift you can use a `.swift-version` file to set the version for your Pod. For example to use Swift 2.3, run:
 	    `echo "2.3" > .swift-version`.
 	You can use the `--no-clean` option to inspect any issue.
-	
+
 提示我们需要加`--allow-warnings`这么一句话，命令改为
 
 	$ pod lib lint --allow-warnings
@@ -183,24 +183,24 @@ end
 标签相当于将你的仓库的一个压缩包，用于稳定存储当前版本。标签号与你在 `s.version = "1.0.0"`的版本号一致 `1.0.0`
 
 	创建标签
-	$ git tag -a 1.0.0 -m '标签说明' 
+	$ git tag -a 1.0.0 -m '标签说明'
 	推送到远程
 	$ git push origin --tags
-	
+
 #### 发布`.podspec`
 
-最后一步，发布项目的描述的文件 `BYPhoneNumTF.podspec` 
+最后一步，发布项目的描述的文件 `BYPhoneNumTF.podspec`
 
 在仓库目录下执行
-	
+
 	pod trunk push BYPhoneNumTF.podspec
-	
-将你的 `BYPhoneNumTF.podspec` 发布到公有的speecs上,这一步其实做了很多操作,包括 
+
+将你的 `BYPhoneNumTF.podspec` 发布到公有的speecs上,这一步其实做了很多操作,包括
 
 1. 更新本地 pods 库 `~/.cocoaPods.repo/master`
 - 验证`.podspec`格式是否正确
 - 将 `.podspec` 文件转成 JSON 格式
-- 对 `master` 仓库 进行合并、提交.[master仓库地址](https://github.com/CocoaPods/Specs) 
+- 对 `master` 仓库 进行合并、提交.[master仓库地址](https://github.com/CocoaPods/Specs)
 
 
 成功后将会出现下列信息：
@@ -208,17 +208,17 @@ end
 	Updating spec repo `master`
 	Validating podspec
 	 -> BYPhoneNumTF (1.0.0)
-	
+
 	Updating spec repo `master`
-	
+
 	--------------------------------------------------------------------------------
 	 🎉  Congrats
-	
+
 	 🚀  BYPhoneNumTF (1.0.0) successfully published
 	 📅  March 7th, 01:39
 	 🌎  https://cocoapods.org/pods/BYPhoneNumTF
 	 👍  Tell your friends!
-	 
+
 说明发布成功，你就可以通过上面的URL: <https://cocoapods.org/pods/BYPhoneNumTF> 进入的Pods查看自己的仓库信息了.
 
 ![](https://ww3.sinaimg.cn/large/006tNbRwgy1fded7yh8ugj31kw19djyk.jpg)
@@ -230,7 +230,7 @@ end
 	$ pod setup
 
 查询仓库
-	
+
 	$ pod search BYPhoneNumTF
 ---
 	-> BYPhoneNumTF (1.0.0)
@@ -260,4 +260,3 @@ end
 # 结语
 
 到此,你已经掌握了创建和维护一个Cocoapods公有仓库的技能了，是不是很棒~
-

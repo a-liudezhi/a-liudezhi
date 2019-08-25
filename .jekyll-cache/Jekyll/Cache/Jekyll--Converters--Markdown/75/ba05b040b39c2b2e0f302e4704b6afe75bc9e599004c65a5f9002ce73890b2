@@ -1,17 +1,28 @@
-I"*	<h2 id="前言">前言</h2>
+I"�
+<h2 id="示例作品">示例作品：</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;section class="home-video-hero"&gt;
- &lt;div class="video-frame" &gt;
-   &lt;video autoplay="autoplay" loop="loop" &gt;
-   &lt;source class="mp4" type="video/mp4" src="https://cdn1.evernote.com/evernote.com/video/homepage/homepage-hero-video@2x.mp4"&gt;
-
-   &lt;/video&gt;
-  &lt;/div&gt;
- &lt;/div&gt;
+<section class="home-video-hero">
+ <div class="video-frame">
+ <video autoplay="" playsinline="" loop="" muted="" id="video">
+   <source src="https://cdn1.evernote.com/evernote.com/video/homepage/homepage-hero-video@2x.mp4" type="video/mp4" />
+   </video>
+ &lt;/div
 &lt;/section&gt;
-</code></pre></div></div>
 
-<p>```
+## 展现代码：
+```
+<html>
+... ...
+   <video autoplay="autoplay" loop="loop">
+   <source class="mp4" type="video/mp4" src="https://cdn1.evernote.com/evernote.com/video/homepage/homepage-hero-video@2x.mp4" />
+   </video>
+... ...
+</html>
+```
+
+## 视频 scss 定义：
+```
+... ...
 // 以下是视频  scss
 .home-video-hero {
   position: relative;
@@ -35,9 +46,9 @@
     z-index: -10;
     background-size: cover;
 }
-video {</p>
+video {
 
-<p>}
+}
 .home-video-hero .video-overlay {
     position: relative;
     top: 0;
@@ -69,7 +80,7 @@ video {</p>
     margin-bottom: 10px;
 }
 .home-video-hero .sub-copy {
-    font-family: “webfont”,Helvetica,Arial,sans-serif;
+    font-family: "webfont",Helvetica,Arial,sans-serif;
     font-size: 1.25rem;
     line-height: 30px;
     line-height: 1.875rem;
@@ -78,7 +89,7 @@ video {</p>
     -webkit-font-smoothing: antialiased;
 }
 .home-video-hero p {
-    font-family: “Gotham_SSm_4r”,Helvetica,Arial,sans-serif;
+    font-family: "Gotham_SSm_4r",Helvetica,Arial,sans-serif;
     font-size: 12px;
     font-size: 1.5rem;
     line-height: 1.125rem;
@@ -97,7 +108,17 @@ video {</p>
 .content a {
   // font-size: 1.7rem;
   // font-size: 1.1rem;
-  font-size: 1.8rem;</p>
+  font-size: 1.8rem;
 
-<p>}</p>
+}
+... ...
+```
+
+### 如果我的文章对你有帮助，欢迎打赏，谢谢你的支持！
+<p style="text-align:center;">
+  <br />
+  <img src="https://i.screenshot.net/602w9uw" style="width:325px;" />
+  <img src="https://i.screenshot.net/od0k4a8" style="width:325px;" />
+</p>
+</div></section>
 :ET

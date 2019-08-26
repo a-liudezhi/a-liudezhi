@@ -1,37 +1,30 @@
----
-layout:     post
-title:      网站首页超短视频背景
-subtitle:     ROR 首页动图实现
-date:       2019-8-25
-author:     DZ
-catalog: true
-tags:
-    - 视频背景
----
+I"�<h2 id="示例作品">示例作品：</h2>
 
-## 示例作品：
+<video autoplay="" muted="" webkit-playsinline="true" id="Video" style="z-index:-1" loop="" width="100%" controls="">
+        <source src="https://cdn1.evernote.com/evernote.com/video/homepage/homepage-hero-video@2x.mp4" type="video/mp4" />
+</video>
 
-  <video autoplay loop muted playsinline id="myVideo" style="z-index:-1" width="100%" webkit-playsinline="true"
-   controls="controls" poster=""
-   src="https://cdn1.evernote.com/evernote.com/video/homepage/homepage-hero-video@2x.mp4"
-   type="video/mp4">
+<div class="home-video-hero">
+ <div class="video-frame">
+  <video autoplay="" loop="" muted="" playsinline="" id="myVideo" style="z-index:-1" width="100%" webkit-playsinline="true" controls="controls" poster="" src="https://cdn1.evernote.com/evernote.com/video/homepage/homepage-hero-video@2x.mp4" type="video/mp4">
   </video>
+</div>
+
 
 ## 展现代码：
 ```
 <html>
 ... ...
-<div class="home-video-hero">
+<section class="home-video-hero">
  <div class="video-frame">
-  <video autoplay loop muted playsinline id="myVideo" style="z-index:-1" width="100%" webkit-playsinline="true"
-   controls="controls" poster=""
-   src="https://cdn1.evernote.com/evernote.com/video/homepage/homepage-hero-video@2x.mp4"
-   type="video/mp4">
-  </video>
- </div>
-</div>
+ <video autoplay="" fullscreen="" playsinline="" loop="" muted="false" id="video">
+   <source src="https://cdn1.evernote.com/evernote.com/video/homepage/homepage-hero-video@2x.mp4" type="video/mp4" />
+   <button id="unmuteButton"></button>
+   </video>
+  </div>
+&lt;/sestion&gt;
 ... ...
-</html>
+&lt;/html&gt;
 ```
 
 ## 视频 scss 定义：
@@ -127,8 +120,17 @@ video {
 }
 ... ...
 ```
+## 触发 js ：
+```
+unmuteButton.addEventListener('click', function() {
+  video.muted = false;
+});
+```
 ### 如果我的文章对你有帮助，欢迎打赏，谢谢你的支持！
 <p style="text-align:center;">
-  <img src="https://i.screenshot.net/602w9uw" style="width:325px;">
-  <img src="https://i.screenshot.net/od0k4a8" style="width:325px;">
+  <br />
+  <img src="https://i.screenshot.net/602w9uw" style="width:325px;" />
+  <img src="https://i.screenshot.net/od0k4a8" style="width:325px;" />
 </p>
+</section></html></div>
+:ET

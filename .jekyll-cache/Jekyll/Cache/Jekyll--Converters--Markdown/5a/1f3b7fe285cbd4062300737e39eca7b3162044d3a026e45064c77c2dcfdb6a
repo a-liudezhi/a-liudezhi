@@ -1,0 +1,40 @@
+I"�<p><a href="https://www.w3schools.com/bootstrap/bootstrap_carousel.asp">如何创建轮播</a></p>
+
+<p>以下示例显示如何创建基本轮播：</p>
+
+<p>例</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div id="myCarousel" class="carousel slide" data-ride="carousel"&gt;
+  &lt;!-- Indicators --&gt;
+  &lt;ol class="carousel-indicators"&gt;
+    &lt;li data-target="#myCarousel" data-slide-to="0" class="active"&gt;&lt;/li&gt;
+    &lt;li data-target="#myCarousel" data-slide-to="1"&gt;&lt;/li&gt;
+    &lt;li data-target="#myCarousel" data-slide-to="2"&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+
+  &lt;!-- Wrapper for slides --&gt;
+  &lt;div class="carousel-inner"&gt;
+    &lt;div class="item active"&gt;
+      &lt;img src="la.jpg" alt="Los Angeles"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="item"&gt;
+      &lt;img src="chicago.jpg" alt="Chicago"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="item"&gt;
+      &lt;img src="ny.jpg" alt="New York"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Left and right controls --&gt;
+  &lt;a class="left carousel-control" href="#myCarousel" data-slide="prev"&gt;
+    &lt;span class="glyphicon glyphicon-chevron-left"&gt;&lt;/span&gt;
+    &lt;span class="sr-only"&gt;Previous&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;a class="right carousel-control" href="#myCarousel" data-slide="next"&gt;
+    &lt;span class="glyphicon glyphicon-chevron-right"&gt;&lt;/span&gt;
+    &lt;span class="sr-only"&gt;Next&lt;/span&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+</code></pre></div></div>
+:ET

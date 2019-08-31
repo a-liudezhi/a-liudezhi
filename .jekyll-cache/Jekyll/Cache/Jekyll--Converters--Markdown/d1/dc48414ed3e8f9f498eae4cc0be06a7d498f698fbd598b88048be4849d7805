@@ -1,0 +1,65 @@
+I"R	<p><img src="https://i.screenshot.net/0l9oehk" alt="" /></p>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2" id="progresses">
+
+        <div class="bar-wrapper">
+          <span class="progress-text">
+            平面设计
+          </span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+              <span class="popOver" data-toggle="tooltip" data-placement="top" title="85%"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar-wrapper">
+          <span class="progress-text">
+            营销策划
+          </span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="100">
+              <span class="popOver" data-toggle="tooltip" data-placement="top" title="75%"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar-wrapper">
+          <span class="progress-text">
+            写作
+          </span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100">
+              <span class="popOver" data-toggle="tooltip" data-placement="top" title="71%"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar-wrapper">
+          <span class="progress-text">
+            摄影
+          </span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100">
+              <span class="popOver" data-toggle="tooltip" data-placement="top" title="68%"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar-wrapper">
+          <span class="progress-text">
+            手绘
+          </span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+              <span class="popOver" data-toggle="tooltip" data-placement="top" title="70%"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+  </section>
+:ET

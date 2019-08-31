@@ -1,0 +1,92 @@
+I"�<div class="home-video-hero video-overlay">
+  <div class="video-frame">
+    <video autoplay="" loop="" muted="" playsinline="" id="myVideo" style="z-index:-1" width="100%" webkit-playsinline="true" controls="controls" poster="" src="https://cdn1.evernote.com/evernote.com/video/homepage/homepage-hero-video@2x.mp4" type="video/mp4">
+    </video>
+
+<div class="content-container col-sm-4 col-xs-12">
+ <div class="content">
+     <h1 class="">轻松找到全栈好工作</h1>
+     <div class="line"></div>
+     <br />
+  <p class="slogan">工作无处不在。在这里，帮你连接整个职缺市场
+     <br />
+       放心学习，轻松找Rails全栈工作
+     <br />
+       凭借自己的努力和天份也会变 Winner
+     </p>
+
+     <p class="text-center">
+       &lt;%= link_to jobs_path, class: "btn btn-danger btn-lg btn-round btn-raised " do %&gt;
+       &lt;%= fa_icon("play", text: "开始") %&gt;
+       &lt;% end %&gt;
+     </p>
+   </div>
+
+   </div>
+ </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2" id="progresses">
+
+        <div class="bar-wrapper">
+          <span class="progress-text">
+            平面设计
+          </span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+              <span class="popOver" data-toggle="tooltip" data-placement="top" title="85%"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar-wrapper">
+          <span class="progress-text">
+            营销策划
+          </span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="100">
+              <span class="popOver" data-toggle="tooltip" data-placement="top" title="75%"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar-wrapper">
+          <span class="progress-text">
+            写作
+          </span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100">
+              <span class="popOver" data-toggle="tooltip" data-placement="top" title="71%"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar-wrapper">
+          <span class="progress-text">
+            摄影
+          </span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100">
+              <span class="popOver" data-toggle="tooltip" data-placement="top" title="68%"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar-wrapper">
+          <span class="progress-text">
+            手绘
+          </span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+              <span class="popOver" data-toggle="tooltip" data-placement="top" title="70%"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+  </section>
+:ET

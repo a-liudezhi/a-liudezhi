@@ -1,0 +1,210 @@
+I"s<p>##在全栈第二期很红火的一等奖作品：##
+<strong>其中，一个进度条动画就很动人！</strong>
+<img src="https://i.screenshot.net/0l9oehk" alt="" /></p>
+
+<p>##现在来拆分其制作过程:##</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>... ...
+&lt;section&gt;
+  &lt;div class="container"&gt;
+    &lt;div class="row"&gt;
+      &lt;div class="col-md-8 col-md-offset-2" id="progresses"&gt;
+
+        &lt;div class="bar-wrapper"&gt;
+          &lt;span class="progress-text"&gt;
+            平面设计
+          &lt;/span&gt;
+          &lt;div class="progress"&gt;
+            &lt;div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"&gt;
+              &lt;span class="popOver" data-toggle="tooltip" data-placement="top" title="85%"&gt;&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="bar-wrapper"&gt;
+          &lt;span class="progress-text"&gt;
+            营销策划
+          &lt;/span&gt;
+          &lt;div class="progress"&gt;
+            &lt;div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="100"&gt;
+              &lt;span class="popOver" data-toggle="tooltip" data-placement="top" title="75%"&gt;&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="bar-wrapper"&gt;
+          &lt;span class="progress-text"&gt;
+            写作
+          &lt;/span&gt;
+          &lt;div class="progress"&gt;
+            &lt;div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"&gt;
+              &lt;span class="popOver" data-toggle="tooltip" data-placement="top" title="71%"&gt;&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="bar-wrapper"&gt;
+          &lt;span class="progress-text"&gt;
+            摄影
+          &lt;/span&gt;
+          &lt;div class="progress"&gt;
+            &lt;div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100"&gt;
+              &lt;span class="popOver" data-toggle="tooltip" data-placement="top" title="68%"&gt;&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="bar-wrapper"&gt;
+          &lt;span class="progress-text"&gt;
+            手绘
+          &lt;/span&gt;
+          &lt;div class="progress"&gt;
+            &lt;div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"&gt;
+              &lt;span class="popOver" data-toggle="tooltip" data-placement="top" title="70%"&gt;&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+   &lt;/div&gt;
+  &lt;/section&gt;
+  ... ...
+</code></pre></div></div>
+<h2 id="scss">SCSS</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>... ...
+.landing-page {
+  ... ...
+//进度条、百分比
+//滑动 %
+  .tooltip {
+    position: relative;
+    float: right;
+  }
+
+  .tooltip &gt; .tooltip-inner {
+    min-width: 40px;
+    padding: 5px 15px;
+    font-weight: bold;
+    font-size: 13px;
+    transition: 0.5s;
+    background-color: #FFFFFF;//背景颜色
+    color: #222;
+    border: none;
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12),0 5px 5px -3px rgba(0,0,0,0.2);
+  }
+
+// 滑动指示
+  .popOver + .tooltip &gt; .tooltip-arrow {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #fff;
+  }
+
+//类别文字
+  .progress-text {
+    font-size: 1.2em;
+    letter-spacing: 3px;  //文字间距
+  }
+
+//滑动轨道
+  .progress {
+    margin-top: 5px;
+    height: 3.98px;
+    border-radius: 0;
+    overflow: visible;
+    box-shadow: none;
+    background: #DDDDDD;  //淡灰色
+  }
+
+//滑动条
+  .progress .progress-bar {
+    box-shadow: none;
+    height: 3.98px;
+    -webkit-transition: width 1.5s ease-in-out;
+    transition: width 1.5s ease-in-out;
+  }
+  .progress .progress-bar.progress-bar-default {
+    background-color: #9c27b0;
+  }
+  .progress .progress-bar.progress-bar-inverse {
+    background-color: #3f51b5;
+  }
+  .progress .progress-bar.progress-bar-primary {
+    background-color: #9c27b0;
+  }
+  .progress .progress-bar.progress-bar-success {
+    background-color: #4caf50;
+  }
+  .progress .progress-bar.progress-bar-info {
+    background-color: #03a9f4;
+  }
+  .progress .progress-bar.progress-bar-warning {
+    background-color: #fbc02d;
+  }
+  .progress .progress-bar.progress-bar-danger {
+    background-color: #f44336;
+  }
+  .progress.progress-line-primary {
+    background: rgba(156, 39, 176, 0.2);
+  }
+  .progress.progress-line-info {
+    background: rgba(3, 169, 244, 0.2);
+  }
+  .progress.progress-line-success {
+    background: rgba(76, 175, 80, 0.2);
+  }
+  .progress.progress-line-warning {
+    background: rgba(251, 192, 45, 0.2);
+  }
+  .progress.progress-line-danger {
+    background: rgba(244, 67, 54, 0.2);
+  }
+}
+... ...
+</code></pre></div></div>
+
+<h2 id="js">JS</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>... ...
+// 进度条自动打开
+$(document).on('turbolinks:load', function() {
+  // 菜单自动打开
+  $('.dropdown').hover(function() {
+      $(this).addClass('open');
+    },
+    function() {
+      $(this).removeClass('open');
+  });
+
+// 监听进度区是否可见
+  listenVisibilityOfProgresses();
+// 加载日期选择器
+  $('.datepicker').datepicker();
+});
+
+// 监听进度区是否可见
+function listenVisibilityOfProgresses() {
+  var eventFired = false;
+  $(window).scroll(function() {
+    var offset = $('#progresses').offset();
+    if (offset != null) {
+      var hT = offset.top,
+        hH = $('#progresses').outerHeight(),
+        wH = $(window).height(),
+        wS = $(this).scrollTop();
+      if (!eventFired &amp;&amp; wS &gt; (hT + hH - wH)) {
+        // 当进度条可见时，播放动画
+        $('[data-toggle="tooltip"]').tooltip({
+          trigger: 'manual'
+        }).tooltip('show');
+
+        $(".progress-bar").each(function() {
+          each_bar_width = $(this).attr('aria-valuenow');
+          $(this).width(each_bar_width + '%');
+        });
+        eventFired = true;
+      }
+    }
+  });
+}
+... ...
+</code></pre></div></div>
+:ET
